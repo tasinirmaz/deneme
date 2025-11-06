@@ -12,6 +12,12 @@
       --accent:#2BB1FF;
     }
     *{box-sizing:border-box}
+
+<a href="https://wa.me/905551234567" target="_blank" class="whatsapp-float" aria-label="WhatsApp'tan mesaj gönder">
+  💬
+</a>
+
+
     body{
       margin:0;
       font-family:Inter,Arial,Helvetica,sans-serif;
@@ -96,6 +102,32 @@
     @media (max-width:700px){
       nav button{font-size:14px;padding:10px}
     }
+
+
+/* WhatsApp butonu */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25D366;
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.whatsapp-float:hover {
+  background-color: #1ebe5b;
+}
+
+
   </style>
 </head>
 <body>
@@ -143,7 +175,7 @@
             el.classList.remove('active');
             el.setAttribute('aria-hidden','true');
             btn.classList.remove('active');
-          }
+          }	
         }
       });
     }
