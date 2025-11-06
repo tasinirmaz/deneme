@@ -1,67 +1,152 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pasa Alanı 180/A - Arsarazi Gayrimenkul</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bahçelievler Teknik Lise 160/1</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #f7f7f7;
-      color: #333;
+    :root{
+      --bg:#f8f8f8;
+      --dark:#1a1a1a;
+      --muted:#eee;
+      --accent:#2BB1FF;
     }
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px;
-      text-align: center;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      color:#222;
+      height:100vh;
+      display:flex;
+      flex-direction:column;
     }
-    .container {
-      max-width: 900px;
-      margin: 20px auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+    header{
+      background:var(--dark);
+      color:#fff;
+      padding:12px 18px;
+      font-size:18px;
+      flex-shrink:0;
     }
-    img {
-      width: 100%;
-      border-radius: 10px;
+
+    /* Nav */
+    nav{
+      display:flex;
+      gap:0;
+      background:var(--muted);
+      border-bottom:1px solid #dcdcdc;
+      flex-shrink:0;
     }
-    h2 {
-      margin-top: 20px;
-      color: #2c3e50;
+    nav button{
+      flex:1;
+      padding:12px 10px;
+      border:0;
+      background:transparent;
+      cursor:pointer;
+      font-size:15px;
     }
-    a.map-link {
-      display: inline-block;
-      margin-top: 10px;
-      background: #27ae60;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      text-decoration: none;
+    nav button.active{
+      background:#fff;
+      border-bottom:3px solid var(--dark);
+      font-weight:600;
     }
-    a.map-link:hover {
-      background: #219150;
+
+    /* Content area */
+    .stage{
+      flex:1;
+      min-height:0;
+      position:relative;
+    }
+    section{
+      display:none;
+      width:100%;
+      height:100%;
+      overflow:auto;
+      padding:16px;
+    }
+    section.active{display:block}
+
+    iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+    }
+    img.plan{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      background:#fff;
+    }
+
+    /* Info content */
+    #bilgi{
+      background:#fff;
+      border-top:1px solid #ccc;
+    }
+    #bilgi h2{margin-top:0}
+    #bilgi p{margin:8px 0}
+    #bilgi hr{margin:16px 0}
+
+    @media (min-width:900px){
+      img.plan{object-fit:cover}
+    }
+    @media (max-width:700px){
+      nav button{font-size:14px;padding:10px}
     }
   </style>
 </head>
 <body>
+  <header>🏠 Kiralık – Bahçelievler Teknik Lise 160/1</header>
 
-<header>
-  <h1>Taşınmaz Bilgileri</h1>
-</header>
+  <nav aria-label="Sayfa kontrolleri">
+    <button id="btnTur" class="active" type="button" onclick="showSection('tur')">360 Sanal Tur</button>
+    <button id="btnPlan" type="button" onclick="showSection('plan')">Plan Görünümü</button>
+    <button id="btnBilgi" type="button" onclick="showSection('bilgi')">Gayrimenkul Bilgileri</button>
+  </nav>
 
-<div class="container">
-  <img src="arsa1.jpg" alt="Arsa Görseli">
-  <h2>Pasa Alanı 180/A</h2>
-  <p><strong>Fiyat:</strong> 1.250.000 TL</p>
-  <p><strong>Alan:</strong> 520 m²</p>
-  <p><strong>Konum:</strong> Balıkesir / Altıeylül</p>
-  <p><strong>Açıklama:</strong> Ana yola 200 metre mesafede, yatırımlık arsa.</p>
-  <a href="https://maps.google.com/?q=39.648,27.892" class="map-link" target="_blank">Google Maps'te Gör</a>
-</div>
+  <div class="stage" id="stage">
+    <section id="tur" class="active">
+      <iframe src="tour/index.html" title="360 derece sanal tur"></iframe>
+    </section>
 
+    <section id="plan">
+      <img src="plan.jpg" alt="Bina planı" class="plan">
+    </section>
+
+    <section id="bilgi">
+      <h2>Gayrimenkul Bilgileri</h2>
+      <p><strong>Adres:</strong> Bahçelievler Teknik Lise Yanı</p>
+      <p><strong>Alan:</strong> 160 m²</p>
+      <p><strong>Tür:</strong> Eğitim Binası</p>
+      <p><strong>Durum:</strong> Kullanımda</p>
+      <p><strong>Açıklama:</strong> Bu yapı, eğitim faaliyetleri için tasarlanmış teknik lise binasıdır. 360 turda sınıf ve laboratuvar detaylarını inceleyebilirsiniz.</p>
+      <hr />
+      <p><strong>İletişim:</strong> ArsaRaZi Gayrimenkul • <a href="tel:+905551234567">+90 555 123 4567</a></p>
+    </section>
+  </div>
+
+  <script>
+    function showSection(id){
+      const sections = ['tur','plan','bilgi'];
+      sections.forEach(s=>{
+        const el = document.getElementById(s);
+        const btn = document.getElementById('btn' + s.charAt(0).toUpperCase() + s.slice(1));
+        if(el && btn){
+          if(s===id){
+            el.classList.add('active');
+            el.setAttribute('aria-hidden','false');
+            btn.classList.add('active');
+          } else {
+            el.classList.remove('active');
+            el.setAttribute('aria-hidden','true');
+            btn.classList.remove('active');
+          }
+        }
+      });
+    }
+  </script>
 </body>
 </html>
